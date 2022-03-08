@@ -30,19 +30,19 @@ var startQuiz = function (event) {
     question.textContent = "What is an if/else statement";
 
 
-    choiceOne.textContent = "choiceOne"
+    choiceOne.textContent = "a function"
     content.appendChild(choiceOne);
 
 
-    choiceTwo.textContent = "choiceTwo"
+    choiceTwo.textContent = "an object"
     content.appendChild(choiceTwo);
 
 
-    choiceThree.textContent = "choiceThree"
+    choiceThree.textContent = "a variable"
     content.appendChild(choiceThree);
 
 
-    choiceFour.textContent = "choiceFour"
+    choiceFour.textContent = "a conditional statement"
     choiceFour.setAttribute("id", choiceId);
     content.appendChild(choiceFour);
 
@@ -59,31 +59,41 @@ var subtractTime = function(){
     count -= 10;
     questionTwo();
 }
+
+var subtractTime2 = function(){
+    count -= 10;
+    questionThree();
+}
 var questionTwo = function () {
     choiceOne.removeEventListener("click",subtractTime);
     choiceTwo.removeEventListener("click",subtractTime);
     choiceThree.removeEventListener("click",subtractTime);
     choiceFour.removeEventListener("click",questionTwo);
     question.textContent = "What is an array";
-    choiceOne.textContent = "Q2choiceOne"
-    choiceTwo.textContent = "Q2choiceTwo"
-    choiceThree.textContent = "Q2choiceThree"
-    choiceFour.textContent = "Q2choiceFour"
+    choiceOne.textContent = "a tag"
+    choiceTwo.textContent = "a conditional statement"
+    choiceThree.textContent = "a list of objects"
+    choiceFour.textContent = "an api"
+    choiceOne.addEventListener("click", subtractTime2);
+    choiceTwo.addEventListener("click", subtractTime2);
     choiceThree.addEventListener("click", questionThree);
+    choiceFour.addEventListener("click", subtractTime2);
 }
 var questionThree = function () {
+    choiceOne.removeEventListener("click", subtractTime2);
+    choiceTwo.removeEventListener("click", subtractTime2);
     choiceThree.removeEventListener("click",questionThree);
+    choiceFour.removeEventListener("click", subtractTime2);
     question.textContent = "What is Dom?";
-    choiceOne.textContent = "Q3choiceOne"
-    choiceTwo.textContent = "Q3choiceTwo"
-    choiceThree.textContent = "Q3choiceThree"
-    choiceFour.textContent = "Q3choiceFour"
+    choiceOne.textContent = "direct object module"
+    choiceTwo.textContent = "document object model"
+    choiceThree.textContent = "data object module"
+    choiceFour.textContent = "data oriented model"
     choiceTwo.addEventListener("click", endGame);
-
 }
 
 var endGame = function(){
-    alert("sopa dopa");
+    alert("END GAME");
 }
 
 btn.addEventListener("click", startQuiz);
