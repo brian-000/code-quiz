@@ -14,9 +14,10 @@ var input = document.createElement("input");
 var tag = document.createElement("p"); // <p></p>
 var myInitials = document.querySelector("#initials");
 var val;
+var finalScore;
 var scoresArray =  {
     name: val,
-    score: count
+    score: finalScore
 };
 var finalArray = [];
 
@@ -26,7 +27,7 @@ var finalArray = [];
 var finalButton = document.createElement("button");
 
 function timeInterval() {
-    timerEl.innerHTML = "<p> Time left:" + count + " seconds</p>"
+    timerEl.innerHTML = "<p> Time left:<h3>" + count + "</h3> </p>"
     count--;
     if (count == 0) {
         endGame();
@@ -79,6 +80,14 @@ var subtractTime2 = function () {
     count -= 10;
     questionThree();
 }
+var subtractTime3 = function () {
+    count -= 10;
+    questionFour();
+}
+var subtractTime4 = function(){
+    count -= 10;
+    questionFive();
+}
 var questionTwo = function () {
     choiceOne.removeEventListener("click", subtractTime);
     choiceTwo.removeEventListener("click", subtractTime);
@@ -104,14 +113,51 @@ var questionThree = function () {
     choiceTwo.textContent = "document object model"
     choiceThree.textContent = "data object module"
     choiceFour.textContent = "data oriented model"
-    choiceTwo.addEventListener("click", endGame);
+    choiceOne.addEventListener("click", subtractTime3);
+    choiceTwo.addEventListener("click", questionFour);
+    choiceThree.addEventListener("click", subtractTime3);
+    choiceFour.addEventListener("click", subtractTime3);
+}
+
+var questionFour = function(){
+    choiceOne.removeEventListener("click", subtractTime3);
+    choiceTwo.removeEventListener("click", questionFour);
+    choiceThree.removeEventListener("click", subtractTime3);
+    choiceFour.removeEventListener("click", subtractTime3);
+    question.textContent = "A very useful tool used during developement and debugging for printing content to the debugger is:";
+    choiceOne.textContent = "JavaScript"
+    choiceTwo.textContent = "Terminal/Bash"
+    choiceThree.textContent = "For Loops"
+    choiceFour.textContent = "console.log"
+    choiceOne.addEventListener("click", subtractTime4);
+    choiceTwo.addEventListener("click", subtractTime4);
+    choiceThree.addEventListener("click", subtractTime4);
+    choiceFour.addEventListener("click", questionFive);
+
+}
+
+var questionFive = function(){
+    choiceOne.removeEventListener("click", subtractTime4);
+    choiceTwo.removeEventListener("click", subtractTime4);
+    choiceThree.removeEventListener("click", subtractTime4);
+    choiceFour.removeEventListener("click", questionFive);
+    question.textContent = "String values must be enclosed within _______ when being assigned to variables.";
+    choiceOne.textContent = "commas"
+    choiceTwo.textContent = "curley brackets"
+    choiceThree.textContent = "quotes"
+    choiceFour.textContent = "parenthesis"
+
+    choiceThree.addEventListener("click", endGame);
 }
 
 
 var endGame = function () {
+finalScore = count;
+// var temp = finalScore;
+// finalScore = temp;
     alert("END GAME");
-
-    var text = document.createTextNode("Your final score is " + count + " Enter Initials: ");
+   
+    var text = document.createTextNode("Your final score is " + finalScore + " Enter Initials: ");
     finalButton.textContent = "Submit";
     input.type = "text";
 
@@ -143,7 +189,7 @@ function getVal() {
    
    
     scoresArray.name = document.querySelector("#initials").value;
-    scoresArray.score= count;
+    scoresArray.score= finalScore;
     //var sizeOfArray = finalArray.length()+1;
     finalArray.push(scoresArray);
 
@@ -177,6 +223,7 @@ var highScores = function () {
     var str = JSON.stringify(finalArray, null, 4); 
         var text2 = document.createTextNode(str);
         //text2.replace('{','aa');
+     
         content.appendChild(text2);
 
 
